@@ -22,7 +22,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
     const handleAnswer = (selectedAnswer: string) => {
         if (selectedAnswer === correctAnswer) {
             onCorrect();
-            setAttempts(0);
+            setAttempts(-1);
         } else {
             setAttempts((prev) => Math.min(prev + 1, message.length - 1));
             setHintVisible(true);

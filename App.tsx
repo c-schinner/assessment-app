@@ -12,9 +12,10 @@ export default function App() {
   }, []);
 
   const animatedStyle = {
-    transform: [{ scale: scale.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0.5, 1]
+    transform: [{ 
+      scale: scale.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0.5, 1]
     }) }],
   };
 
