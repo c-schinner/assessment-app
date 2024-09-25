@@ -9,15 +9,22 @@ interface BodyProps {
     onCorrect: () => void;
 }
 
-const message = 'Hint: ';
+const message = [
+    'Hint: This is the first hint.',
+    'Hint: This is the second hint.',
+    'Hint: This is the third hint.',
+]
 
 const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect }) => {
     const [hintVisible, setHintVisible] = useState<boolean>(false);
+    const [attempts, setAttempts] = useState<number>(-1);
 
     const handleAnswer = (selectedAnswer: string) => {
         if (selectedAnswer === correctAnswer) {
             onCorrect();
+            setAttempts(0);
         } else {
+            setAttempts((prev) => Math.min(prev + 1, message.length - 1));
             setHintVisible(true);
         }
     };
@@ -32,7 +39,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
             ))}
             <Hint 
                 visible={hintVisible}
-                message={message}
+                message={message[attempts]}
                 onClose={() => setHintVisible(false)} />
         </View>
     )

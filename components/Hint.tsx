@@ -28,7 +28,7 @@ const Hint: React.FC<HintProps> = ({ visible, message, onClose }) => {
 
     const translateY = slideMessage.interpolate({
         inputRange: [0, 1],
-        outputRange: [100, -100],
+        outputRange: [500, -100],
     });
 
     return (
