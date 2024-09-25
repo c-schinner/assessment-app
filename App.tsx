@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
+import Interface from './components/Interface';
 
 export default function App() {
   const scale = useRef(new Animated.Value(0)).current;
@@ -11,14 +12,17 @@ export default function App() {
   }, []);
 
   const animatedStyle = {
-    transform: [{ scale }],
+    transform: [{ scale: scale.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0.5, 1]
+    }) }],
   };
 
   return (
     <View style={styles.container}>
-      <Animated.Text style={[styles.text, animatedStyle]}>
-        Here is our assessment project!
-      </Animated.Text>
+      <Animated.View style={[animatedStyle]}>
+        <Interface scale={scale} />
+      </Animated.View>
       <StatusBar style="auto" />
     </View>
   );
@@ -29,10 +33,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    justifyContent: 'flex-start',
   },
 });
