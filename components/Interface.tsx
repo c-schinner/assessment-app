@@ -19,7 +19,7 @@ const Interface: React.FC<InterfaceProps> = ({ scale }) => {
     }
 
     const question = 'Correct';
-    const options = ['Correct', 'incorrect', 'Incorrect', 'Wrong'];
+    const answers = ['Correct', 'incorrect', 'Incorrect', 'Wrong'];
     const correctAnswer = 'Correct';
 
     return (
@@ -27,7 +27,7 @@ const Interface: React.FC<InterfaceProps> = ({ scale }) => {
             <ProgressBar progress={progress} width={200} height={10}  />
             <Body 
                 question={question}
-                options={options}
+                answers={answers}
                 correctAnswer={correctAnswer}
                 onCorrect={handleCorrect} />
         </View>

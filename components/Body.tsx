@@ -1,30 +1,39 @@
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import Hint from './Hint';
 
 interface BodyProps {
     question: string;
-    options: string[];
+    answers: string[];
     correctAnswer: string;
     onCorrect: () => void;
 }
 
-const Body: React.FC<BodyProps> = ({ question, options, correctAnswer, onCorrect }) => {
+const message = 'Hint: ';
+
+const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect }) => {
+    const [hintVisible, setHintVisible] = useState<boolean>(false);
+
     const handleAnswer = (selectedAnswer: string) => {
-        if (selectedAnswer === 'correctAnswer') {
+        if (selectedAnswer === correctAnswer) {
             onCorrect();
         } else {
-            alert('Try again');
+            setHintVisible(true);
         }
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.question}>{question}</Text>
-            {options.map((option, index) => (
-                <TouchableOpacity key={index} onPress={() => handleAnswer(option)} style={styles.option}>
-                    <Text>{option}</Text>
+            <Text style={styles.question}>{question}:</Text>
+            {answers.map((answer, index) => (
+                <TouchableOpacity key={index} onPress={() => handleAnswer(answer)} style={styles.option}>
+                    <Text>{answer}</Text>
                 </TouchableOpacity>
             ))}
+            <Hint 
+                visible={hintVisible}
+                message={message}
+                onClose={() => setHintVisible(false)} />
         </View>
     )
 }
@@ -34,8 +43,7 @@ export default Body
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: 50,
     },
     question: {
         fontSize: 20,
