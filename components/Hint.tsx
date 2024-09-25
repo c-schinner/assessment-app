@@ -51,10 +51,9 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.8',
+        backgroundColor: 'rgba(151, 154, 153, 0.1)',
         padding: 20,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        borderRadius: 10,
     },
     hintMessage: {
         alignItems: 'center',
