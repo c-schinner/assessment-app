@@ -1,5 +1,7 @@
 import { Animated, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { useState } from 'react';
+import ProgressBar from 'react-native-progress/Bar';
 
 interface InterfaceProps {
     scale: Animated.Value;
@@ -7,9 +9,15 @@ interface InterfaceProps {
 
 const Interface: React.FC<InterfaceProps> = ({ scale }) => {
 
+    const [progress, setProgress] = useState(.75);
+
+    const handleCorrect = () => {
+        setProgress((prevProgress) => prevProgress + .25);
+    }
+
     return (
         <View style={styles.container}>
-            <View style={styles.progress} />
+            <ProgressBar progress={progress} width={200} height={10}  />
         </View>
     );
 }
@@ -23,11 +31,5 @@ const styles = StyleSheet.create({
         marginTop: 70,
         justifyContent: 'flex-start',
     },
-    progress: {
-        width: 200,
-        backgroundColor: 'white',
-        borderColor: 'black',
-        borderWidth: 10,
-        height: 20,
-    },
+
 })
