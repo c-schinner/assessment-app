@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     closeButton: {
-        padding: 10,
+        padding: 5,
         backgroundColor: 'red',
         borderRadius: 5,
     },
