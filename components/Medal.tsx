@@ -7,7 +7,7 @@ const Medal: React.FC = () => {
 
     useEffect(() => {
             Animated.timing(slideUpValue, {
-                toValue: -200,
+                toValue: -300,
                 duration: 2000,
                 useNativeDriver: true,
             }).start();
