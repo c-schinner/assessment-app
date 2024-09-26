@@ -18,9 +18,13 @@ const Interface: React.FC<InterfaceProps> = ({ scale }) => {
         setProgress((prevProgress) => Math.min(prevProgress + .25, 1));
     }
 
-    const question = 'Correct';
-    const answers = ['Correct', 'incorrect', 'Incorrect', 'Wrong'];
-    const correctAnswer = 'Correct';
+    const question = 'What is the correct way to log a message on the screen?';
+    const answers = [
+        "console.log('message');", 
+        "print('message')", 
+        "const console.log('message');", 
+        "consoleLog('message');"];
+    const correctAnswer = "console.log('message')";
 
     return (
         <View style={styles.container}>
