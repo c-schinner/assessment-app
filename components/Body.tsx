@@ -46,6 +46,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
         setSelectedAnswer(null);
         setIsSubmitted(false);
         setShowRetryButton(false);
+        setHintVisible(false);
     }
 
         // This is our animation function to hanlde our incorrect answers
@@ -70,6 +71,8 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
     };
 
     const handleSelectAnswer = (answer: string) => {
+        if (showRetryButton || isCorrectAnswerSubmitted) return;
+
         setSelectedAnswer(answer);
         setIsSubmitted(false);
     };
@@ -90,7 +93,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
     return (
         <View style={styles.container}>
             <Text style={styles.question}>{question}:</Text>
-            
+
             {!isCorrectAnswerSubmitted && answers.map((answer, index) => (
                 <Animated.View
                     key={index}
