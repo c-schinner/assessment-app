@@ -21,6 +21,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
     const [isCorrectAnswerSubmitted, setIsCorrectAnswerSubmitted] = useState<boolean>(false);
+    const [showRetryButton, setShowRetryButton] = useState<boolean>(false);
 
     const shakeAnimation = useRef(new Animated.Value(0)).current;
 
@@ -33,8 +34,16 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
             setAttempts((prev) => Math.min(prev + 1, message.length - 1));
             setHintVisible(true);
             shake();
+            setIsSubmitted(true);
+            setShowRetryButton(true);
         }
         setIsSubmitted(true);
+    }
+
+    const handleRetry = () => {
+        setSelectedAnswer(null);
+        setIsSubmitted(false);
+        setShowRetryButton(false);
     }
 
     const shake = () => {
@@ -92,13 +101,22 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
                     </TouchableOpacity>
                 </Animated.View>
             ))}
-            {!isCorrectAnswerSubmitted && (
+            {!isCorrectAnswerSubmitted && !showRetryButton && (
             <TouchableOpacity
                 style={styles.submitButton}
                 onPress={handleSubmit}>
                     <Text style={styles.answerTextSelected}>Submit</Text>
             </TouchableOpacity>
             )}
+
+            {showRetryButton && (
+                <TouchableOpacity
+                    style={styles.retryButton}
+                    onPress={handleRetry}>
+                        <Text style={styles.answerTextSelected}>Retry</Text>
+                </TouchableOpacity>
+            )}
+
             {isCorrectAnswerSubmitted && (
                 <View style={styles.correctAnswerContainer}>
                     <Text style={styles.answerTextSelected}>{correctAnswer}</Text>
@@ -184,5 +202,15 @@ const styles = StyleSheet.create({
         width: '50%',
         alignItems: 'center',
         alignSelf: 'center',
+    },
+    retryButton: {
+        backgroundColor: 'red',
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 20,
+        marginBottom: 10,
+        width: '50%',
+        alignSelf: 'center',
+        alignItems: 'center',
     },
 });
