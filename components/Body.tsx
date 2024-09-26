@@ -1,6 +1,7 @@
 import { TouchableOpacity, Button, StyleSheet, View, Text, Animated } from 'react-native'
 import React, { useState, useRef } from 'react'
 import Hint from './Hint';
+import Medal from './Medal';
 
 interface BodyProps {
     question: string;
@@ -124,6 +125,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
             {isCorrectAnswerSubmitted && (
                 <View style={styles.correctAnswerContainer}>
                     <Text style={styles.answerTextSelected}>{correctAnswer}</Text>
+                    <Medal />
                 </View>
             )}
             <Hint 
