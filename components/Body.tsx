@@ -10,9 +10,9 @@ interface BodyProps {
 }
 
 const message = [
-    'Hint: This is the first hint.',
-    'Hint: This is the second hint.',
-    'Hint: This is the third hint.',
+    "Hint: Think about how you would display output in JavaScript. Which function is commonly used for logging messages to the console?.",
+    "Hint: Remember that in JavaScript, functions are called by their names followed by parentheses. Pay attention to the correct function name and its syntax.",
+    "Hint: The correct way to log a message starts with 'console.' Make sure you include the proper method and format the message correctly within the parentheses.",
 ]
 
 const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect }) => {
