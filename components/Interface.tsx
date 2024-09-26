@@ -18,7 +18,7 @@ const Interface: React.FC<InterfaceProps> = ({ scale }) => {
         setProgress((prevProgress) => Math.min(prevProgress + .25, 1));
     }
 
-    const question = 'What is the correct way to log a message on the screen?';
+    const question = 'What is the correct way to log a message on the screen, in JavaScript?';
     const answers = [
         "console.log('message');", 
         "print('message')", 
