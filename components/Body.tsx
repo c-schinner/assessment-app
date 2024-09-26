@@ -20,12 +20,14 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
     const [attempts, setAttempts] = useState<number>(-1);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+    const [isCorrectAnswerSubmitted, setIsCorrectAnswerSubmitted] = useState<boolean>(false);
 
     const shakeAnimation = useRef(new Animated.Value(0)).current;
 
     const handleSubmit = () => {
         if (selectedAnswer === correctAnswer) {
             onCorrect();
+            setIsCorrectAnswerSubmitted(true);
             setAttempts(-1);
         } else {
             setAttempts((prev) => Math.min(prev + 1, message.length - 1));
@@ -74,7 +76,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
     return (
         <View style={styles.container}>
             <Text style={styles.question}>{question}:</Text>
-            {answers.map((answer, index) => (
+            {!isCorrectAnswerSubmitted && answers.map((answer, index) => (
                 <Animated.View
                     key={index}
                     style={[
@@ -90,10 +92,17 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
                     </TouchableOpacity>
                 </Animated.View>
             ))}
+            {!isCorrectAnswerSubmitted && (
             <Button 
                 title="Submit"
                 onPress={handleSubmit}
                 />
+            )}
+            {isCorrectAnswerSubmitted && (
+                <View style={styles.correctAnswerContainer}>
+                    <Text style={styles.answerTextSelected}>{correctAnswer}</Text>
+                </View>
+            )}
             <Hint 
                 visible={hintVisible}
                 message={message[attempts]}
@@ -155,5 +164,14 @@ const styles = StyleSheet.create({
     },
     answerTextSelected: {
         color: 'white',
-    }
+    },
+    correctAnswerContainer: {
+        backgroundColor: 'green',
+        padding: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        marginTop: 20,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
 });
