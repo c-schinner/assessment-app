@@ -90,6 +90,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
     return (
         <View style={styles.container}>
             <Text style={styles.question}>{question}:</Text>
+            
             {!isCorrectAnswerSubmitted && answers.map((answer, index) => (
                 <Animated.View
                     key={index}
@@ -106,6 +107,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
                     </TouchableOpacity>
                 </Animated.View>
             ))}
+
             {!isCorrectAnswerSubmitted && !showRetryButton && (
             <TouchableOpacity
                 style={styles.submitButton}
@@ -125,9 +127,11 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
             {isCorrectAnswerSubmitted && (
                 <View style={styles.correctAnswerContainer}>
                     <Text style={styles.answerTextSelected}>{correctAnswer}</Text>
-                    <Medal />
                 </View>
             )}
+
+            {isCorrectAnswerSubmitted && <Medal />}
+
             <Hint 
                 visible={hintVisible}
                 message={message[attempts]}
