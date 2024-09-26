@@ -93,10 +93,11 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
                 </Animated.View>
             ))}
             {!isCorrectAnswerSubmitted && (
-            <Button 
-                title="Submit"
-                onPress={handleSubmit}
-                />
+            <TouchableOpacity
+                style={styles.submitButton}
+                onPress={handleSubmit}>
+                    <Text style={styles.answerTextSelected}>Submit</Text>
+            </TouchableOpacity>
             )}
             {isCorrectAnswerSubmitted && (
                 <View style={styles.correctAnswerContainer}>
@@ -173,5 +174,15 @@ const styles = StyleSheet.create({
         marginTop: 20,
         borderRadius: 5,
         alignItems: 'center',
+    },
+    submitButton: {
+        backgroundColor: 'blue',
+        padding: 10,
+        borderRadius: 5,
+        marginTop: 20,
+        marginBottom: 10,
+        width: '50%',
+        alignItems: 'center',
+        alignSelf: 'center',
     },
 });

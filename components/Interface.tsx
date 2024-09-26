@@ -24,7 +24,7 @@ const Interface: React.FC<InterfaceProps> = ({ scale }) => {
         "print('message')", 
         "const console.log('message');", 
         "consoleLog('message');"];
-    const correctAnswer = "console.log('message')";
+    const correctAnswer = "console.log('message');";
 
     return (
         <View style={styles.container}>
