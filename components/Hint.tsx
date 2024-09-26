@@ -10,6 +10,7 @@ interface HintProps {
 const Hint: React.FC<HintProps> = ({ visible, message, onClose }) => {
     const slideMessage = React.useRef(new Animated.Value(0)).current;
 
+        // This is the animation function that the hint will use
     React.useEffect(() => {
         if (visible) {
             Animated.timing(slideMessage, {
@@ -26,6 +27,7 @@ const Hint: React.FC<HintProps> = ({ visible, message, onClose }) => {
         }
     }, [visible]);
 
+        // This will have our hint container slide up from the bottom of the screen
     const translateY = slideMessage.interpolate({
         inputRange: [0, 1],
         outputRange: [500, -100],

@@ -23,6 +23,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
     const [isCorrectAnswerSubmitted, setIsCorrectAnswerSubmitted] = useState<boolean>(false);
     const [showRetryButton, setShowRetryButton] = useState<boolean>(false);
 
+        // This is the animation setup for our incorrect answers
     const shakeAnimation = useRef(new Animated.Value(0)).current;
 
     const handleSubmit = () => {
@@ -46,6 +47,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
         setShowRetryButton(false);
     }
 
+        // This is our animation function to hanlde our incorrect answers
     const shake = () => {
         Animated.sequence([
             Animated.timing(shakeAnimation, {
@@ -71,6 +73,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
         setIsSubmitted(false);
     };
 
+        // This is provide the correct styling for our answer field
     const getAnswerStyle = (answer: string) => {
         if (isSubmitted && answer === selectedAnswer) {
             return answer === correctAnswer ? styles.correctAnswer : styles.wrongAnswer;
@@ -78,6 +81,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
         return answer === selectedAnswer ? styles.selectedAnswer : styles.option;
     }
 
+        // This will provide the correct styling for our text
     const getTextStyle = (answer: string) => {
         return answer === selectedAnswer ? styles.answerTextSelected : styles.answerText;
     }
