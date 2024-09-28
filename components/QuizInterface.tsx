@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react';
 // @ts-ignore
 import ProgressBar from 'react-native-progress/Bar';
-import AnswerLogic from './AnswerLogic';
+import AnswerSelectionLogic from './AnswerSelectionLogic';
 
 const question = 'What is the correct way to log a message on the screen, in JavaScript?';
 const answers = [
@@ -29,7 +29,7 @@ const QuizInterface: React.FC<QuizInterfaceProps> = ({ scale }) => {
     return (
         <View style={styles.container}>
             <ProgressBar progress={progress} width={200} height={10}  />
-            <AnswerLogic 
+            <AnswerSelectionLogic 
                 question={question}
                 answers={answers}
                 correctAnswer={correctAnswer}

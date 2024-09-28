@@ -9,7 +9,7 @@ const message = [
     "Hint: The correct way to log a message starts with 'console.' Make sure you include the proper method and format the message correctly within the parentheses.",
 ]
 
-interface AnswerLogicProps {
+interface AnswerSelectionLogicProps {
     question: string;
     answers: string[];
     correctAnswer: string;
@@ -17,7 +17,7 @@ interface AnswerLogicProps {
 }
 
 
-const AnswerLogic: React.FC<AnswerLogicProps> = ({ question, answers, correctAnswer, onCorrect }) => {
+const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, answers, correctAnswer, onCorrect }) => {
     const [hintVisible, setHintVisible] = useState<boolean>(false);
     const [attempts, setAttempts] = useState<number>(-1);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -36,7 +36,7 @@ const AnswerLogic: React.FC<AnswerLogicProps> = ({ question, answers, correctAns
         } else {
             setAttempts((prev) => Math.min(prev + 1, message.length - 1));
             setHintVisible(true);
-            shake();
+            shakeIncorrectAnswers();
             setIsSubmitted(true);
             setShowRetryButton(true);
         }
@@ -51,7 +51,7 @@ const AnswerLogic: React.FC<AnswerLogicProps> = ({ question, answers, correctAns
     }
 
         // This is our animation function to hanlde our incorrect answers
-    const shake = () => {
+    const shakeIncorrectAnswers = () => {
         Animated.sequence([
             Animated.timing(shakeAnimation, {
                 toValue: 10,
@@ -144,7 +144,7 @@ const AnswerLogic: React.FC<AnswerLogicProps> = ({ question, answers, correctAns
     )
 }
 
-export default AnswerLogic
+export default AnswerSelectionLogic
 
 const styles = StyleSheet.create({
     container: {
