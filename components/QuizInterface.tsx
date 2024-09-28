@@ -5,11 +5,19 @@ import { useState } from 'react';
 import ProgressBar from 'react-native-progress/Bar';
 import Body from './Body';
 
-interface InterfaceProps {
+const question = 'What is the correct way to log a message on the screen, in JavaScript?';
+const answers = [
+    "console.log('message');", 
+    "print('message')", 
+    "const console.log('message');", 
+    "consoleLog('message');"];
+const correctAnswer = "console.log('message');";
+
+interface QuizInterfaceProps {
     scale: Animated.Value;
 }
 
-const Interface: React.FC<InterfaceProps> = ({ scale }) => {
+const QuizInterface: React.FC<QuizInterfaceProps> = ({ scale }) => {
     // Define the progress bar initial state to 75%
     const [progress, setProgress] = useState<number>(.75);
 
@@ -17,14 +25,6 @@ const Interface: React.FC<InterfaceProps> = ({ scale }) => {
     const handleCorrect = () => {
         setProgress((prevProgress) => Math.min(prevProgress + .25, 1));
     }
-
-    const question = 'What is the correct way to log a message on the screen, in JavaScript?';
-    const answers = [
-        "console.log('message');", 
-        "print('message')", 
-        "const console.log('message');", 
-        "consoleLog('message');"];
-    const correctAnswer = "console.log('message');";
 
     return (
         <View style={styles.container}>
@@ -38,7 +38,7 @@ const Interface: React.FC<InterfaceProps> = ({ scale }) => {
     );
 }
 
-export default Interface
+export default QuizInterface
 
 const styles = StyleSheet.create({
     container: {
