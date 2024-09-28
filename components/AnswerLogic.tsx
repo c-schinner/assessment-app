@@ -1,4 +1,4 @@
-import { TouchableOpacity, Button, StyleSheet, View, Text, Animated } from 'react-native'
+import { TouchableOpacity, StyleSheet, View, Text, Animated } from 'react-native'
 import React, { useState, useRef } from 'react'
 import Hint from './Hint';
 import Medal from './Medal';
@@ -9,7 +9,7 @@ const message = [
     "Hint: The correct way to log a message starts with 'console.' Make sure you include the proper method and format the message correctly within the parentheses.",
 ]
 
-interface BodyProps {
+interface AnswerLogicProps {
     question: string;
     answers: string[];
     correctAnswer: string;
@@ -17,7 +17,7 @@ interface BodyProps {
 }
 
 
-const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect }) => {
+const AnswerLogic: React.FC<AnswerLogicProps> = ({ question, answers, correctAnswer, onCorrect }) => {
     const [hintVisible, setHintVisible] = useState<boolean>(false);
     const [attempts, setAttempts] = useState<number>(-1);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -144,7 +144,7 @@ const Body: React.FC<BodyProps> = ({ question, answers, correctAnswer, onCorrect
     )
 }
 
-export default Body
+export default AnswerLogic
 
 const styles = StyleSheet.create({
     container: {
