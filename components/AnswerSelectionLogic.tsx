@@ -1,13 +1,21 @@
-import { TouchableOpacity, StyleSheet, View, Text, Animated, StyleProp, ViewStyle } from 'react-native'
-import React, { useState, useRef } from 'react'
-import HintLogic from './HintLogic';
-import MedalComponent from './MedalComponent';
+import {
+    TouchableOpacity,
+    StyleSheet,
+    View,
+    Text,
+    Animated,
+    StyleProp,
+    ViewStyle,
+} from "react-native";
+import React, { useState, useRef } from "react";
+import HintLogic from "./HintLogic";
+import MedalComponent from "./MedalComponent";
 
 const message: string[] = [
     "Hint: Think about how you would display output in JavaScript. Which function is commonly used for logging messages to the console?.",
     "Hint: Remember that in JavaScript, functions are called by their names followed by parentheses. Pay attention to the correct function name and its syntax.",
     "Hint: The correct way to log a message starts with 'console.' Make sure you include the proper method and format the message correctly within the parentheses.",
-]
+];
 
 interface AnswerSelectionLogicProps {
     question: string;
@@ -16,17 +24,24 @@ interface AnswerSelectionLogicProps {
     onCorrect: () => void;
 }
 
-
-const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, answers, correctAnswer, onCorrect }) => {
+const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({
+    question,
+    answers,
+    correctAnswer,
+    onCorrect,
+}) => {
     const [hintVisible, setHintVisible] = useState<boolean>(false);
     const [attempts, setAttempts] = useState<number>(-1);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-    const [isCorrectAnswerSubmitted, setIsCorrectAnswerSubmitted] = useState<boolean>(false);
+    const [isCorrectAnswerSubmitted, setIsCorrectAnswerSubmitted] =
+        useState<boolean>(false);
     const [showRetryButton, setShowRetryButton] = useState<boolean>(false);
 
-        // This is the animation setup for our incorrect answers
-    const shakeAnimation = useRef<Animated.Value>(new Animated.Value(0)).current;
+    // This is the animation setup for our incorrect answers
+    const shakeAnimation = useRef<Animated.Value>(
+        new Animated.Value(0)
+    ).current;
 
     const handleSubmit = (): void => {
         if (selectedAnswer === correctAnswer) {
@@ -34,23 +49,25 @@ const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, a
             setIsCorrectAnswerSubmitted(true);
             setAttempts(-1);
         } else {
-            setAttempts((prev: number) => Math.min(prev + 1, message.length - 1));
+            setAttempts((prev: number) =>
+                Math.min(prev + 1, message.length - 1)
+            );
             setHintVisible(true);
             shakeIncorrectAnswers();
             setIsSubmitted(true);
             setShowRetryButton(true);
         }
         setIsSubmitted(true);
-    }
+    };
 
     const handleRetry = (): void => {
         setSelectedAnswer(null);
         setIsSubmitted(false);
         setShowRetryButton(false);
         setHintVisible(false);
-    }
+    };
 
-        // This is our animation function to hanlde our incorrect answers
+    // This is our animation function to hanlde our incorrect answers
     const shakeIncorrectAnswers = (): void => {
         Animated.sequence([
             Animated.timing(shakeAnimation, {
@@ -78,73 +95,93 @@ const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, a
         setIsSubmitted(false);
     };
 
-        // This is provide the correct styling for our answer field
+    // This is provide the correct styling for our answer field
     const getAnswerStyle = (answer: string): StyleProp<ViewStyle> => {
         if (isSubmitted && answer === selectedAnswer) {
-            return answer === correctAnswer ? styles.correctAnswer : styles.wrongAnswer;
+            return answer === correctAnswer
+                ? styles.correctAnswer
+                : styles.wrongAnswer;
         }
-        return answer === selectedAnswer ? styles.selectedAnswer : styles.option;
-    }
+        return answer === selectedAnswer
+            ? styles.selectedAnswer
+            : styles.option;
+    };
 
-        // This will provide the correct styling for our text
+    // This will provide the correct styling for our text
     const getTextStyle = (answer: string): object => {
-        return answer === selectedAnswer ? styles.answerTextSelected : styles.answerText;
-    }
+        return answer === selectedAnswer
+            ? styles.answerTextSelected
+            : styles.answerText;
+    };
 
     return (
         <View style={styles.container}>
             <Text style={styles.question}>{question}:</Text>
 
-            {!isCorrectAnswerSubmitted && answers.map((answer, index) => (
-                <Animated.View
-                    key={index}
-                    style={[
-                        getAnswerStyle(answer),
-                        selectedAnswer === answer && answer !== correctAnswer && isSubmitted 
-                        ? { transform: [{ translateX: shakeAnimation}] }
-                        : {},
-                    ]}>
-                    <TouchableOpacity
-                        style={styles.optionButton}
-                        onPress={() => handleSelectAnswer(answer)}>
-                        <Text style={getTextStyle(answer)}>{answer}</Text>
-                    </TouchableOpacity>
-                </Animated.View>
-            ))}
+            {!isCorrectAnswerSubmitted &&
+                answers.map((answer, index) => (
+                    <Animated.View
+                        key={index}
+                        style={[
+                            getAnswerStyle(answer),
+                            selectedAnswer === answer &&
+                            answer !== correctAnswer &&
+                            isSubmitted
+                                ? {
+                                      transform: [
+                                          { translateX: shakeAnimation },
+                                      ],
+                                  }
+                                : {},
+                        ]}
+                    >
+                        <TouchableOpacity
+                            style={styles.optionButton}
+                            onPress={() => handleSelectAnswer(answer)}
+                        >
+                            <Text style={getTextStyle(answer)}>{answer}</Text>
+                        </TouchableOpacity>
+                    </Animated.View>
+                ))}
 
             {!isCorrectAnswerSubmitted && !showRetryButton && (
-            <TouchableOpacity
-                style={styles.submitButton}
-                onPress={handleSubmit}>
+                <TouchableOpacity
+                    style={styles.submitButton}
+                    onPress={handleSubmit}
+                >
                     <Text style={styles.answerTextSelected}>Submit</Text>
-            </TouchableOpacity>
+                </TouchableOpacity>
             )}
 
             {showRetryButton && (
                 <TouchableOpacity
                     style={styles.retryButton}
-                    onPress={handleRetry}>
-                        <Text style={styles.answerTextSelected}>Retry</Text>
+                    onPress={handleRetry}
+                >
+                    <Text style={styles.answerTextSelected}>Retry</Text>
                 </TouchableOpacity>
             )}
 
             {isCorrectAnswerSubmitted && (
                 <View style={styles.correctAnswerContainer}>
-                    <Text style={styles.answerTextSelected}>{correctAnswer}</Text>
+                    <Text style={styles.answerTextSelected}>
+                        {correctAnswer}
+                    </Text>
                 </View>
             )}
 
             {isCorrectAnswerSubmitted && <MedalComponent />}
 
-            <HintLogic 
+            <HintLogic
                 visible={hintVisible}
                 message={message[attempts]}
-                onClose={() => setHintVisible(false)} />
+                onClose={() => setHintVisible(false)}
+            />
         </View>
-    )
-}
+    );
+};
 
-export default AnswerSelectionLogic
+export default AnswerSelectionLogic;
 
 const styles = StyleSheet.create({
     container: {
@@ -159,72 +196,71 @@ const styles = StyleSheet.create({
     option: {
         padding: 10,
         borderWidth: 1,
-        borderColor: 'black',
+        borderColor: "black",
         marginVertical: 5,
         borderRadius: 5,
     },
     optionButton: {
-        width: '100%',
-        alignItems: 'center',
-
+        width: "100%",
+        alignItems: "center",
     },
     selectedAnswer: {
-        backgroundColor: 'blue',
+        backgroundColor: "blue",
         padding: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: "#ccc",
         marginBottom: 10,
         borderRadius: 5,
     },
     correctAnswer: {
-        backgroundColor: 'green',
+        backgroundColor: "green",
         padding: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: "#ccc",
         marginBottom: 10,
         borderRadius: 5,
     },
     wrongAnswer: {
-        backgroundColor: 'red',
+        backgroundColor: "red",
         padding: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: "#ccc",
         marginBottom: 10,
         borderRadius: 5,
     },
     answerText: {
-        color: 'black',
+        color: "black",
     },
     answerTextSelected: {
-        color: 'white',
+        color: "white",
     },
     correctAnswerContainer: {
-        backgroundColor: 'green',
+        backgroundColor: "green",
         padding: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: "#ccc",
         marginTop: 20,
         borderRadius: 5,
-        alignItems: 'center',
+        alignItems: "center",
     },
     submitButton: {
-        backgroundColor: 'blue',
+        backgroundColor: "blue",
         padding: 10,
         borderRadius: 5,
         marginTop: 20,
         marginBottom: 10,
-        width: '50%',
-        alignItems: 'center',
-        alignSelf: 'center',
+        width: "50%",
+        alignItems: "center",
+        alignSelf: "center",
     },
     retryButton: {
-        backgroundColor: 'red',
+        backgroundColor: "red",
         padding: 10,
         borderRadius: 5,
         marginTop: 20,
         marginBottom: 10,
-        width: '50%',
-        alignSelf: 'center',
-        alignItems: 'center',
+        width: "50%",
+        alignSelf: "center",
+        alignItems: "center",
     },
 });
