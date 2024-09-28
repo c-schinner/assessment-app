@@ -17,12 +17,12 @@ interface QuizInterfaceProps {
     scale: Animated.Value;
 }
 
-const QuizInterface: React.FC<QuizInterfaceProps> = ({ scale }) => {
+const QuizInterface: React.FC<QuizInterfaceProps> = () => {
     // Define the progress bar initial state to 75%
     const [progress, setProgress] = useState<number>(.75);
 
     // If the answer is correct, the progress bar will fill completely
-    const handleCorrect = () => {
+    const handleCorrect = (): void => {
         setProgress((prevProgress) => Math.min(prevProgress + .25, 1));
     }
 

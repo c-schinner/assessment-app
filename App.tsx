@@ -1,17 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useRef } from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import QuizInterface from './components/QuizInterface';
 
-export default function App() {
+const App: React.FC = () => {
   const scaleSizing = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
 
-    Animated.timing(scaleSizing, { toValue: 1, duration: 1500, useNativeDriver: true }).start();
+    Animated.timing(scaleSizing, { 
+      toValue: 1,
+      duration: 1500, 
+      useNativeDriver: true 
+    }).start();
   }, []);
 
-  const animatedStyle = {
+  const animatedStyle: StyleProp<ViewStyle> = {
     transform: [{ 
       scale: scaleSizing.interpolate({
         inputRange: [0, 1],
@@ -28,6 +32,8 @@ export default function App() {
     </View>
   );
 }
+
+export default App
 
 const styles = StyleSheet.create({
   container: {

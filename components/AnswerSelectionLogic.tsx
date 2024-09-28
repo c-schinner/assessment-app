@@ -1,4 +1,4 @@
-import { TouchableOpacity, StyleSheet, View, Text, Animated } from 'react-native'
+import { TouchableOpacity, StyleSheet, View, Text, Animated, StyleProp, ViewStyle } from 'react-native'
 import React, { useState, useRef } from 'react'
 import HintLogic from './HintLogic';
 import MedalComponent from './MedalComponent';
@@ -26,15 +26,15 @@ const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, a
     const [showRetryButton, setShowRetryButton] = useState<boolean>(false);
 
         // This is the animation setup for our incorrect answers
-    const shakeAnimation = useRef(new Animated.Value(0)).current;
+    const shakeAnimation = useRef<Animated.Value>(new Animated.Value(0)).current;
 
-    const handleSubmit = () => {
+    const handleSubmit = (): void => {
         if (selectedAnswer === correctAnswer) {
             onCorrect();
             setIsCorrectAnswerSubmitted(true);
             setAttempts(-1);
         } else {
-            setAttempts((prev) => Math.min(prev + 1, message.length - 1));
+            setAttempts((prev: number) => Math.min(prev + 1, message.length - 1));
             setHintVisible(true);
             shakeIncorrectAnswers();
             setIsSubmitted(true);
@@ -43,7 +43,7 @@ const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, a
         setIsSubmitted(true);
     }
 
-    const handleRetry = () => {
+    const handleRetry = (): void => {
         setSelectedAnswer(null);
         setIsSubmitted(false);
         setShowRetryButton(false);
@@ -51,7 +51,7 @@ const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, a
     }
 
         // This is our animation function to hanlde our incorrect answers
-    const shakeIncorrectAnswers = () => {
+    const shakeIncorrectAnswers = (): void => {
         Animated.sequence([
             Animated.timing(shakeAnimation, {
                 toValue: 10,
@@ -71,7 +71,7 @@ const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, a
         ]).start();
     };
 
-    const handleSelectAnswer = (answer: string) => {
+    const handleSelectAnswer = (answer: string): void => {
         if (showRetryButton || isCorrectAnswerSubmitted) return;
 
         setSelectedAnswer(answer);
@@ -79,7 +79,7 @@ const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, a
     };
 
         // This is provide the correct styling for our answer field
-    const getAnswerStyle = (answer: string) => {
+    const getAnswerStyle = (answer: string): StyleProp<ViewStyle> => {
         if (isSubmitted && answer === selectedAnswer) {
             return answer === correctAnswer ? styles.correctAnswer : styles.wrongAnswer;
         }
@@ -87,7 +87,7 @@ const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, a
     }
 
         // This will provide the correct styling for our text
-    const getTextStyle = (answer: string) => {
+    const getTextStyle = (answer: string): object => {
         return answer === selectedAnswer ? styles.answerTextSelected : styles.answerText;
     }
 
