@@ -1,13 +1,13 @@
 import { StyleSheet, Animated, TouchableOpacity, View, Text } from 'react-native'
 import React from 'react'
 
-interface HintProps {
+interface HintLogicProps {
     visible: boolean;
     message: string;
     onClose: () => void;
 }
 
-const Hint: React.FC<HintProps> = ({ visible, message, onClose }) => {
+const HintLogic: React.FC<HintLogicProps> = ({ visible, message, onClose }) => {
     const slideMessage = React.useRef(new Animated.Value(0)).current;
 
         // This is the animation function that the hint will use
@@ -45,7 +45,7 @@ const Hint: React.FC<HintProps> = ({ visible, message, onClose }) => {
     )
 }
 
-export default Hint
+export default HintLogic
 
 const styles = StyleSheet.create({
     hintContainer: {

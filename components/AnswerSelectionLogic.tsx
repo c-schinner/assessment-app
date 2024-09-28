@@ -1,7 +1,7 @@
 import { TouchableOpacity, StyleSheet, View, Text, Animated } from 'react-native'
 import React, { useState, useRef } from 'react'
-import Hint from './Hint';
-import Medal from './Medal';
+import HintLogic from './HintLogic';
+import MedalComponent from './MedalComponent';
 
 const message = [
     "Hint: Think about how you would display output in JavaScript. Which function is commonly used for logging messages to the console?.",
@@ -134,9 +134,9 @@ const AnswerSelectionLogic: React.FC<AnswerSelectionLogicProps> = ({ question, a
                 </View>
             )}
 
-            {isCorrectAnswerSubmitted && <Medal />}
+            {isCorrectAnswerSubmitted && <MedalComponent />}
 
-            <Hint 
+            <HintLogic 
                 visible={hintVisible}
                 message={message[attempts]}
                 onClose={() => setHintVisible(false)} />

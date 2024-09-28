@@ -2,7 +2,7 @@ import { View, Animated, StyleSheet, Text } from 'react-native'
 import React, { useRef, useEffect } from 'react'
 import { FontAwesome6 } from '@expo/vector-icons'
 
-const Medal: React.FC = () => {
+const MedalComponent: React.FC = () => {
     const slideUpValue = useRef(new Animated.Value(300)).current;
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const Medal: React.FC = () => {
     )
 }
 
-export default Medal
+export default MedalComponent
 
 const styles = StyleSheet.create({
     container: {
