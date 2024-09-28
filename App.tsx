@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Animated, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import QuizInterface from './components/QuizInterface';
 
 const App: React.FC = () => {
-  const scaleSizing = React.useRef(new Animated.Value(0)).current;
+  const scaleSizing = useRef<Animated.Value>(new Animated.Value(0)).current;
 
   useEffect(() => {
 

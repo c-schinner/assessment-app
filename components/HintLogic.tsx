@@ -1,5 +1,5 @@
 import { StyleSheet, Animated, TouchableOpacity, View, Text } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 
 interface HintLogicProps {
     visible: boolean;
@@ -8,7 +8,7 @@ interface HintLogicProps {
 }
 
 const HintLogic: React.FC<HintLogicProps> = ({ visible, message, onClose }) => {
-    const slideMessage = React.useRef(new Animated.Value(0)).current;
+    const slideMessage = useRef<Animated.Value>(new Animated.Value(0)).current;
 
         // This is the animation function that the hint will use
     React.useEffect(() => {
