@@ -5,13 +5,13 @@ import { useState } from 'react';
 import ProgressBar from 'react-native-progress/Bar';
 import AnswerSelectionLogic from './AnswerSelectionLogic';
 
-const question = 'What is the correct way to log a message on the screen, in JavaScript?';
-const answers = [
+const question: string = 'What is the correct way to log a message on the screen, in JavaScript?';
+const answers: string[] = [
     "console.log('message');", 
     "print('message')", 
     "const console.log('message');", 
     "consoleLog('message');"];
-const correctAnswer = "console.log('message');";
+const correctAnswer: string = "console.log('message');";
 
 interface QuizInterfaceProps {
     scale: Animated.Value;
