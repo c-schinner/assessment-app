@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from 'react'
 import { FontAwesome6 } from '@expo/vector-icons'
 
 const MedalComponent: React.FC = () => {
-    const slideUpValue = useRef(new Animated.Value(300)).current;
+    const slideUpValue = useRef<Animated.Value>(new Animated.Value(300)).current;
 
     useEffect(() => {
             Animated.timing(slideUpValue, {
